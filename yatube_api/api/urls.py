@@ -4,6 +4,7 @@ from rest_framework.authtoken import views
 
 from .views import CommentViewset, GroupViewset, PostViewset
 
+
 router = routers.DefaultRouter()
 router.register('groups', GroupViewSet)
 router.register('posts', PostViewSet)

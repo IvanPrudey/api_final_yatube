@@ -12,6 +12,7 @@ class GroupViewSet(ReadOnlyModelViewSet):
     """Документация от себя."""
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    permission_classes = (IsAuthorOrReadOnlyPermission,)
 
 
 class PostViewSet(ModelViewSet):

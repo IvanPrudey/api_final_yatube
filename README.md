@@ -43,3 +43,12 @@ python manage.py migrate
 ```
 python manage.py runserver
 ```
+
+## Документация и примеры запросов:
+
+Cмотрите в файле redoc.yaml
+или по следующему адресу:
+
+```
+http://127.0.0.1:8000/redoc/
+```

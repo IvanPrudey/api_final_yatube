@@ -18,16 +18,13 @@ class GroupViewSet(ReadOnlyModelViewSet):
     """Документация от себя."""
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = (IsAuthorOrReadOnlyPermission,)
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class PostViewSet(ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
-    permission_classes = (
-        permissions.IsAuthenticated,
-        IsAuthorOrReadOnlyPermission,
-    )
+    permission_classes = (IsAuthorOrReadOnlyPermission,)
     pagination_class = LimitOffsetPagination
 
     def perform_create(self, serializer):
@@ -36,10 +33,7 @@ class PostViewSet(ModelViewSet):
 
 class CommentViewSet(ModelViewSet):
     serializer_class = CommentSerializer
-    permission_classes = (
-        permissions.IsAuthenticated,
-        IsAuthorOrReadOnlyPermission,
-    )
+    permission_classes = (IsAuthorOrReadOnlyPermission,)
 
     def get_post(self):
         return get_object_or_404(Post, id=self.kwargs.get('post_id'))

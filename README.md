@@ -46,7 +46,7 @@ python manage.py runserver
 
 ## Документация и примеры запросов:
 
-Cмотрите в файле redoc.yaml
+Cмотрите в файле redoc.yaml в директории /yatube_api/static/
 или по следующему адресу:
 
 ```

@@ -15,13 +15,20 @@ from .serializers import (
 
 
 class GroupViewSet(ReadOnlyModelViewSet):
-    """Документация от себя."""
+    """
+    Выполняет операции CRUD с моделью Group,
+    применен сериализатор GroupSerializer.
+    """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class PostViewSet(ModelViewSet):
+    """
+    Выполняет операции CRUD с моделью Post,
+    применен сериализатор PostSerializer.
+    """
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = (IsAuthorOrReadOnlyPermission,)
@@ -32,6 +39,10 @@ class PostViewSet(ModelViewSet):
 
 
 class CommentViewSet(ModelViewSet):
+    """
+    Выполняет операции CRUD с моделью Comment,
+    применен сериализатор CommentSerializer.
+    """
     serializer_class = CommentSerializer
     permission_classes = (IsAuthorOrReadOnlyPermission,)
 
@@ -46,6 +57,10 @@ class CommentViewSet(ModelViewSet):
 
 
 class FollowViewSet(ModelViewSet):
+    """
+    Выполняет операции CRUD с моделью Follow,
+    применен сериализатор FollowSerializer.
+    """
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated,)
     filter_backends = (filters.SearchFilter,)

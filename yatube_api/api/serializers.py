@@ -4,15 +4,19 @@ from rest_framework.relations import SlugRelatedField
 
 from posts.models import Comment, Follow, Group, Post, User
 
+MESSAGE_DONE = 'Вы не можете подписаться на себя.'
+MESSAGE_YOURSELF = 'Уже подписаны на этого автора.'
+
 
 class GroupSerializer(serializers.ModelSerializer):
-
+    '''Сериализатор к модели Group.'''
     class Meta:
         model = Group
         fields = '__all__'
 
 
 class PostSerializer(serializers.ModelSerializer):
+    '''Сериализатор к модели Post.'''
     author = SlugRelatedField(slug_field='username', read_only=True)
 
     class Meta:
@@ -21,6 +25,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    '''Сериализатор к модели Comment.'''
     author = serializers.SlugRelatedField(
         slug_field='username', read_only=True
     )
@@ -32,6 +37,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class FollowSerializer(serializers.ModelSerializer):
+    '''Сериализатор к модели Follow.'''
     user = serializers.SlugRelatedField(
         slug_field='username', read_only=True
     )
@@ -48,11 +54,7 @@ class FollowSerializer(serializers.ModelSerializer):
         following = data['following']
         is_unique = Follow.objects.filter(user=user, following=following)
         if user == following:
-            raise serializers.ValidationError(
-                'Вы не можете быть подписаны на самого себя.'
-            )
+            raise serializers.ValidationError(f'{MESSAGE_DONE}')
         if len(is_unique) != 0:
-            raise serializers.ValidationError(
-                'Вы уже подписаны на этого автора.'
-            )
+            raise serializers.ValidationError(f'{MESSAGE_YOURSELF}')
         return data

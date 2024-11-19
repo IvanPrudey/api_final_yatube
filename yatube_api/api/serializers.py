@@ -9,6 +9,7 @@ MESSAGE_YOURSELF = 'Вы не можете подписаться на себя.
 
 class GroupSerializer(serializers.ModelSerializer):
     '''Сериализатор к модели Group.'''
+
     class Meta:
         model = Group
         fields = '__all__'
@@ -16,6 +17,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     '''Сериализатор к модели Post.'''
+
     author = SlugRelatedField(slug_field='username', read_only=True)
 
     class Meta:
@@ -25,6 +27,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     '''Сериализатор к модели Comment.'''
+
     author = serializers.SlugRelatedField(
         slug_field='username', read_only=True
     )
@@ -37,6 +40,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class FollowSerializer(serializers.ModelSerializer):
     '''Сериализатор к модели Follow.'''
+
     user = serializers.SlugRelatedField(
         slug_field='username', read_only=True
     )

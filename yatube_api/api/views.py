@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import filters, permissions
+from rest_framework import filters, mixins, permissions, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
@@ -21,7 +21,7 @@ class GroupViewSet(ReadOnlyModelViewSet):
 
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    permission_classes = (permissions.AllowAny,)
 
 
 class PostViewSet(ModelViewSet):
@@ -64,7 +64,11 @@ class CommentViewSet(ModelViewSet):
         return self.get_post().comments.all()
 
 
-class FollowViewSet(ModelViewSet):
+class FollowViewSet(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin
+):
     """
     Выполняет операции CRUD с моделью Follow,
     применен сериализатор FollowSerializer.

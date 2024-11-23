@@ -10,7 +10,7 @@ class Group(models.Model):
     description = models.TextField('Описание')
 
     def __str__(self):
-        return self.title[:30]
+        return self.title[:20]
 
     class Meta:
         verbose_name = 'Группа'
@@ -33,7 +33,7 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.title[:30]
+        return self.text[:30]
 
     class Meta:
         verbose_name = 'Пост'
@@ -55,7 +55,7 @@ class Comment(models.Model):
         'Дата добавления', auto_now_add=True, db_index=True)
 
     def __str__(self):
-        return self.title[:30]
+        return f'{self.text} : {self.post} : {self.author}'[:30]
 
     class Meta:
         verbose_name = 'Комментарий'
@@ -73,7 +73,7 @@ class Follow(models.Model):
     )
 
     def __str__(self):
-        return self.title[:30]
+        return f'{self.following} : {self.user}'[:30]
 
     class Meta:
         constraints = [

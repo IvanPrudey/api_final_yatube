@@ -10,7 +10,7 @@ class Group(models.Model):
     description = models.TextField('Описание')
 
     def __str__(self):
-        return self.title
+        return self.title[:30]
 
     class Meta:
         verbose_name = 'Группа'
@@ -33,7 +33,7 @@ class Post(models.Model):
     )
 
     def __str__(self):
-        return self.text
+        return self.title[:30]
 
     class Meta:
         verbose_name = 'Пост'
@@ -53,6 +53,9 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
 
+    def __str__(self):
+        return self.title[:30]
+
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
@@ -64,8 +67,12 @@ class Follow(models.Model):
         verbose_name='Пользователь'
     )
     following = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='following', null=True
+        User, on_delete=models.CASCADE, related_name='following', null=True,
+        verbose_name='Подписчик'
     )
+
+    def __str__(self):
+        return self.title[:30]
 
     class Meta:
         constraints = [

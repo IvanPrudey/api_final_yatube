@@ -60,13 +60,6 @@ python manage.py runserver
 
 ## Документация и примеры запросов:
 
-Cмотрите в файле redoc.yaml в директории /yatube_api/static/
-или по следующему адресу:
-
-```
-http://127.0.0.1:8000/redoc/
-```
-
 ### Получение публикаций
 
 ```
@@ -89,6 +82,74 @@ http://127.0.0.1:8000/api/v1/posts/
   ]
 }
 ```
+
+## Создание публикации
+```
+POST 
+http://127.0.0.1:8000/api/v1/posts/
+Request samples
+{
+"text": "string",
+"image": "string",
+"group": 0
+}
+
+Response samples
+{
+  "id": 0,
+  "author": "string",
+  "text": "string",
+  "pub_date": "2019-08-24T14:15:22Z",
+  "image": "string",
+  "group": 0
+}
+```
+
+## Получение публикации по id
+
+```
+GET
+http://127.0.0.1:8000/api/v1/posts/0/
+
+Response samples
+{
+  "id": 0,
+  "author": "string",
+  "text": "string",
+  "pub_date": "2019-08-24T14:15:22Z",
+  "image": "string",
+  "group": 0
+}
+```
+
+## Добавление комментария
+Добавление нового комментария к публикации. Анонимные запросы запрещены.
+
+```
+POST
+http://127.0.0.1:8000/api/v1/posts/0/comments/
+Request samples
+{
+  "text": "string"
+}
+
+Response samples
+{
+  "id": 0,
+  "author": "string",
+  "text": "string",
+  "created": "2019-08-24T14:15:22Z",
+  "post": 0
+}
+```
+
+Подробную документацию и примеры смотрите в файле redoc.yaml в директории /yatube_api/static/
+или по следующему адресу:
+
+```
+http://127.0.0.1:8000/redoc/
+```
+
 
 ## Автор:
 Прудий Иван, ученик ЯндексПрактикум , курса Python-разработчик

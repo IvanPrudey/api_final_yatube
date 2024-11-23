@@ -3,14 +3,14 @@ from rest_framework import filters, mixins, permissions, viewsets
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
-from .permissions import IsAuthorOrReadOnlyPermission
-from posts.models import Group, Post
-from .serializers import (
+from api.permissions import IsAuthorOrReadOnlyPermission
+from api.serializers import (
     CommentSerializer,
     FollowSerializer,
     GroupSerializer,
     PostSerializer
 )
+from posts.models import Group, Post
 
 
 class GroupViewSet(ReadOnlyModelViewSet):

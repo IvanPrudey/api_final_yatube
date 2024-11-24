@@ -9,12 +9,12 @@ class Group(models.Model):
     slug = models.SlugField('Слаг', unique=True)
     description = models.TextField('Описание')
 
-    def __str__(self):
-        return self.title[:20]
-
     class Meta:
         verbose_name = 'Группа'
         verbose_name_plural = 'Группы'
+
+    def __str__(self):
+        return self.title[:20]
 
 
 class Post(models.Model):
@@ -32,13 +32,13 @@ class Post(models.Model):
         verbose_name='Группа'
     )
 
-    def __str__(self):
-        return self.text[:30]
-
     class Meta:
         verbose_name = 'Пост'
         verbose_name_plural = 'Посты'
         ordering = ('-pub_date',)
+
+    def __str__(self):
+        return self.text[:30]
 
 
 class Comment(models.Model):
@@ -54,12 +54,12 @@ class Comment(models.Model):
     created = models.DateTimeField(
         'Дата добавления', auto_now_add=True, db_index=True)
 
-    def __str__(self):
-        return f'{self.text} : {self.post} : {self.author}'[:30]
-
     class Meta:
         verbose_name = 'Комментарий'
         verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return f'{self.text} : {self.post} : {self.author}'[:30]
 
 
 class Follow(models.Model):
@@ -72,9 +72,6 @@ class Follow(models.Model):
         verbose_name='Подписчик'
     )
 
-    def __str__(self):
-        return f'{self.following} : {self.user}'[:30]
-
     class Meta:
         constraints = [
             models.UniqueConstraint(
@@ -84,3 +81,6 @@ class Follow(models.Model):
         ]
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
+
+    def __str__(self):
+        return f'{self.following} : {self.user}'[:30]

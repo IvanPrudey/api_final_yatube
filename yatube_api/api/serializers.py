@@ -52,12 +52,17 @@ class FollowSerializer(serializers.ModelSerializer):
         model = Follow
         fields = ('user', 'following')
 
+    # по вашему комментарию - добавляю имя поля validate_following, сразу
+    # не проходит 1 тест. если оставляю просто validate то все тесты проходят
+    # что делаю не так?
     def validate(self, data):
         user = self.context['request'].user
         following = data['following']
-        is_unique = Follow.objects.filter(user=user, following=following)
+        is_unique = Follow.objects.filter(
+            user=user, following=following
+        ).exists()
         if user == following:
             raise serializers.ValidationError(f'{MESSAGE_YOURSELF}')
-        if len(is_unique) != 0:
+        if is_unique:
             raise serializers.ValidationError(f'{MESSAGE_DONE}')
         return data

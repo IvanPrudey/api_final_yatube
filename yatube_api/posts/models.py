@@ -1,6 +1,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from posts.constants import SIZE_SLICE_STRING, SIZE_SLICE_STRING_MIN
+
 User = get_user_model()
 
 
@@ -14,7 +16,7 @@ class Group(models.Model):
         verbose_name_plural = 'Группы'
 
     def __str__(self):
-        return self.title[:20]
+        return self.title[:SIZE_SLICE_STRING_MIN]
 
 
 class Post(models.Model):
@@ -38,7 +40,7 @@ class Post(models.Model):
         ordering = ('-pub_date',)
 
     def __str__(self):
-        return self.text[:30]
+        return self.text[:SIZE_SLICE_STRING]
 
 
 class Comment(models.Model):
@@ -59,7 +61,7 @@ class Comment(models.Model):
         verbose_name_plural = 'Комментарии'
 
     def __str__(self):
-        return f'{self.text} : {self.post} : {self.author}'[:30]
+        return f'{self.text} : {self.post} : {self.author}'[:SIZE_SLICE_STRING]
 
 
 class Follow(models.Model):
@@ -83,4 +85,4 @@ class Follow(models.Model):
         verbose_name_plural = 'Подписки'
 
     def __str__(self):
-        return f'{self.following} : {self.user}'[:30]
+        return f'{self.following} : {self.user}'[:SIZE_SLICE_STRING]
